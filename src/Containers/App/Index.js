@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Button } from 'react-native'
 import { PageBackground } from '@/Components'
-// import GoogleSigninButton from '@/Components/GoogleSigninButton'
+import GoogleSigninButton from '@/Components/GoogleSigninButton'
 import FacebookSigninButton from '@/Components/FacebookSigninButton'
 import { useTheme } from '@/Theme'
 
@@ -14,7 +14,7 @@ const IndexAppContainer = ({ navigation }) => {
         style={[Common.button, Common.backgroundFB]}
         title="Continue With Facebook"
       />
-      {/* <GoogleSigninButton /> */}
+      <GoogleSigninButton />
       <FacebookSigninButton />
       <Button
         style={[Common.button, Common.backgroundNativeEmail]}
