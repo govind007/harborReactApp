@@ -4,7 +4,7 @@ import {
   GoogleSigninButton as SignInButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin'
-import axios from 'axios'
+import { postRequest } from '@/Services/request'
 
 const GoogleSigninButton = (props) => {
   useEffect(() => {
@@ -19,8 +19,9 @@ const GoogleSigninButton = (props) => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
-      axios
-        .post('https://oauth2.googleapis.com/token', {
+      postRequest({
+        url: 'https://oauth2.googleapis.com/token',
+        data: {
           client_id:
             '1027918676347-461at5avgtbhfmg2jujh3pggl9vndik0.apps.googleusercontent.com',
           grant_type: 'authorization_code',
@@ -30,20 +31,23 @@ const GoogleSigninButton = (props) => {
           client_secret: 'wXn8Bq-GLGaSWDP62hogrqGZ',
           redirect_uri:
             'https://harborapp-d5243.firebaseapp.com/__/auth/handler',
-        })
+        },
+        external: true,
+      })
         .then(function (response) {
-          axios
-            .post('/thirdparty/login', {
+          postRequest({
+            url: '/user/thirdparty/login',
+            data: {
               platform: 'google',
-              email: userInfo.email,
-              name: userInfo.name,
+              email: userInfo.user.email,
+              name: userInfo.user.name,
               country: 'IN',
               access_token: response.data.access_token,
               refresh_token: response.data.refresh_token,
-            })
-            .then(function (resp) {
-              console.log(resp)
-            })
+            },
+          }).then(function (resp) {
+            console.log(resp)
+          })
         })
         .catch(function (error) {
           console.log(error)

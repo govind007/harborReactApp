@@ -10,10 +10,6 @@ const IndexAppContainer = ({ navigation }) => {
 
   return (
     <PageBackground>
-      <Button
-        style={[Common.button, Common.backgroundFB]}
-        title="Continue With Facebook"
-      />
       <GoogleSigninButton />
       <FacebookSigninButton />
       <Button

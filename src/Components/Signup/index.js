@@ -4,12 +4,19 @@ import { useForm } from 'react-hook-form'
 import FormInput from '@/Components/FormInput'
 import FormSelect from '@/Components/FormSelect'
 import FormCountrySelect from '@/Components/FormCountrySelect'
+import { postRequest } from '@/Services/request'
 
 const Signup = ({ navigation }) => {
   const { errors, handleSubmit, control } = useForm()
 
   function onSubmit(data) {
-    console.log(data)
+    postRequest({ url: '/user/register', data })
+      .then((resp) => {
+        console.log(resp)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -19,21 +26,12 @@ const Signup = ({ navigation }) => {
         title="Go back home"
       />
       <FormInput
-        name="firstName"
+        name="name"
         error={errors.firstName}
-        label="First Name"
+        label="Name"
         control={control}
         validationRules={{
-          required: { value: true, message: 'Please enter first name' },
-        }}
-      />
-      <FormInput
-        name="lastName"
-        error={errors.lastName}
-        label="Last Name"
-        control={control}
-        validationRules={{
-          required: { value: true, message: 'Please enter last Name' },
+          required: { value: true, message: 'Please enter name' },
         }}
       />
       <FormSelect
@@ -70,7 +68,7 @@ const Signup = ({ navigation }) => {
         }}
       />
       <FormInput
-        name="emailId"
+        name="email"
         error={errors.emailId}
         label="Email Id"
         control={control}

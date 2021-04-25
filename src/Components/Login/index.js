@@ -2,12 +2,19 @@ import React, { useRef } from 'react'
 import { View, Button } from 'react-native'
 import { useForm } from 'react-hook-form'
 import FormInput from '@/Components/FormInput'
+import { postRequest } from '@/Services/request'
 
 const Login = ({ navigation }) => {
   const { errors, handleSubmit, control } = useForm()
 
   function onSubmit(data) {
-    console.log(data)
+    postRequest({ url: '/user/login', data })
+      .then((resp) => {
+        console.log(resp)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
