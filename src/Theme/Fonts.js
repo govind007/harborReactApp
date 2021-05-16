@@ -49,5 +49,10 @@ export default function ({ FontSize, Colors }) {
     textRight: {
       textAlign: 'right',
     },
+    buttonText: {
+      fontSize: FontSize.small,
+      color: 'white',
+      fontWeight: 'bold',
+    },
   })
 }

@@ -29,6 +29,16 @@ export default function ({ Colors, ...args }) {
       backgroundReset: {
         backgroundColor: Colors.transparent,
       },
+      cardBackground: {
+        backgroundColor: Colors.inputBackground,
+      },
+      cardShadow: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+        elevation: 5,
+      },
       textInput: {
         borderWidth: 1,
         borderColor: Colors.text,
@@ -38,6 +48,16 @@ export default function ({ Colors, ...args }) {
         textAlign: 'center',
         marginTop: 10,
         marginBottom: 10,
+      },
+      socialLoginButton: {
+        paddingHorizontal: 15,
+        paddingVertical: 12,
+      },
+      socialLoginButtonText: {
+        color: 'white',
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: 'bold',
       },
     }),
   }

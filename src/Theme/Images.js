@@ -6,5 +6,6 @@
 export default function () {
   return {
     homepageBG: require('@/Assets/Images/homepageBG.jpg'),
+    logo: require('@/Assets/Images/harborLogo.svg'),
   }
 }

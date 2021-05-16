@@ -1,11 +1,14 @@
-import React, { useRef } from 'react'
-import { View, Button } from 'react-native'
+import React from 'react'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { useForm } from 'react-hook-form'
 import FormInput from '@/Components/FormInput'
+import NativeLoginCardHeader from '@/Components/NativeLoginCardHeader'
 import { postRequest } from '@/Services/request'
+import { useTheme } from '@/Theme'
 
 const Login = ({ navigation }) => {
   const { errors, handleSubmit, control } = useForm()
+  const { Gutters, Common, Fonts } = useTheme()
 
   function onSubmit(data) {
     postRequest({ url: '/user/login', data })
@@ -18,11 +21,17 @@ const Login = ({ navigation }) => {
   }
 
   return (
-    <View>
-      <Button
-        onPress={() => navigation.navigate('Home')}
-        title="Go back home"
-      />
+    <View
+      style={[
+        Gutters.regularHPadding,
+        Gutters.regularVPadding,
+        Gutters.smallHMargin,
+        Gutters.smallVMargin,
+        Common.cardBackground,
+        Common.cardShadow,
+      ]}
+    >
+      <NativeLoginCardHeader text="Login with Harbor" navigation={navigation} />
       <FormInput
         name="emailId"
         error={errors.emailId}
@@ -42,7 +51,12 @@ const Login = ({ navigation }) => {
           required: { value: true, message: 'Please enter Password' },
         }}
       />
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <TouchableOpacity
+        style={Common.button.base}
+        onPress={handleSubmit(onSubmit)}
+      >
+        <Text style={Fonts.buttonText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   )
 }

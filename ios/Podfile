@@ -33,4 +33,4 @@ target 'harborReactApp-tvOS' do
 end
 pod 'GoogleSignIn', '~> 5.0.2'
 pod 'Firebase/Analytics'
-
+pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'

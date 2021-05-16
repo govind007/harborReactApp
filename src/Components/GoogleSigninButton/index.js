@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 import {
   GoogleSignin,
-  GoogleSigninButton as SignInButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin'
 import { postRequest } from '@/Services/request'
+import { TouchableOpacity, Text } from 'react-native'
+import { useTheme } from '@/Theme'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const GoogleSigninButton = (props) => {
+  const { Common, Gutters } = useTheme()
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -65,7 +69,17 @@ const GoogleSigninButton = (props) => {
     }
   }
 
-  return <SignInButton onPress={signIn} />
+  return (
+    <Icon.Button
+      name="google"
+      onPress={signIn}
+      backgroundColor="#b23221"
+      size={22}
+      style={[Common.socialLoginButton]}
+    >
+      <Text style={Common.socialLoginButtonText}>Continue With Google</Text>
+    </Icon.Button>
+  )
 }
 
 export default GoogleSigninButton

@@ -1,13 +1,18 @@
 import React from 'react'
 import {
-  LoginButton,
   AccessToken,
   GraphRequest,
   GraphRequestManager,
+  LoginManager,
 } from 'react-native-fbsdk'
 import { postRequest, request } from '@/Services/request'
+import { Text, View } from 'react-native'
+import { useTheme } from '@/Theme'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const FacebookSigninButton = (props) => {
+  const { Common, Gutters, Fonts } = useTheme()
+
   function getInfoFromToken(token) {
     return new Promise((resolve, reject) => {
       const PROFILE_REQUEST_PARAMS = {
@@ -37,10 +42,10 @@ const FacebookSigninButton = (props) => {
     })
   }
 
-  return (
-    <LoginButton
-      onLoginFinished={(error, result) => {
-        if (error) {
+  function handleFacebookLogin() {
+    LoginManager.logInWithPermissions(['email'])
+      .then((result) => {
+        if (result.error) {
           console.log('login has error: ' + result.error)
         } else if (result.isCancelled) {
           console.log('login is cancelled.')
@@ -49,6 +54,15 @@ const FacebookSigninButton = (props) => {
             const accessToken = data.accessToken.toString()
             const resp = await getRefreshToken(accessToken)
             const userdata = await getInfoFromToken(accessToken)
+
+            console.log('userdatauserdatauserdata', {
+              platform: 'facebook',
+              email: userdata.email,
+              name: userdata.name,
+              country: 'IN',
+              access_token: accessToken,
+              refresh_token: resp.data.access_token,
+            })
             postRequest({
               url: '/user/thirdparty/login',
               data: {
@@ -64,8 +78,24 @@ const FacebookSigninButton = (props) => {
             })
           })
         }
-      }}
-    />
+      })
+      .catch((error) => {
+        console.log('login has error: ' + error)
+      })
+  }
+
+  return (
+    <View style={Gutters.regularVMargin}>
+      <Icon.Button
+        name="facebook"
+        onPress={handleFacebookLogin}
+        backgroundColor="#3b5998"
+        size={22}
+        style={[Common.socialLoginButton]}
+      >
+        <Text style={Common.socialLoginButtonText}>Continue With Facebook</Text>
+      </Icon.Button>
+    </View>
   )
 }
 

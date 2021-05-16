@@ -1,9 +1,9 @@
 import React from 'react'
 import Login from '@/Components/Login'
 import Signup from '@/Components/Signup'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 
-const Tab = createBottomTabNavigator()
+const Tab = createMaterialTopTabNavigator()
 
 const IndexLoginSignupContainer = ({ navigation }) => {
   return (
